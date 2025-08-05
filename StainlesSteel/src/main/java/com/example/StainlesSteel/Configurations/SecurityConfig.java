@@ -49,7 +49,8 @@ public class SecurityConfig {
                                 "/api/public/**",
                                 "/api/auth/**",  // Added all auth endpoints
                                 "/api/products", // Added GET endpoints
-                                "/api/products/{id}"
+                                "/api/products/{id}",
+                                "/api/orders"
                         )
                 )
                 .authorizeHttpRequests(auth -> auth
