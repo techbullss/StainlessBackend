@@ -43,11 +43,10 @@ public class AuthController {
         // Set cookie
         ResponseCookie cookie = ResponseCookie.from("jwt", token)
                 .httpOnly(true)
-                .secure(true) // Enable in production with HTTPS
+                .secure(true)
                 .path("/")
-                .maxAge(7 * 24 * 60 * 60) // 7 days
-                .sameSite("Lax")
-                .domain("stainless-frontend.vercel.app")// Helps with CSRF
+                .maxAge(7 * 24 * 60 * 60)
+                .sameSite("None") // Required when using cross-site cookies + HTTPS
                 .build();
 
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
