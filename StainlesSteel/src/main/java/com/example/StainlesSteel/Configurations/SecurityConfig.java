@@ -22,6 +22,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
+import static org.springframework.security.config.http.MatcherType.mvc;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -46,12 +48,17 @@ public class SecurityConfig {
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                         .csrfTokenRequestHandler(requestHandler)
                         .ignoringRequestMatchers(
-                                "/api/public/**",
-                                "/api/auth/**",  // Added all auth endpoints
-                                "/api/products", // Added GET endpoints
-                                "/api/products/{id}",
-                                "/api/orders",
-                                "/uploads/**"
+                                request -> {
+                                    String path = request.getRequestURI();
+                                    String method = request.getMethod();
+                                    return (
+                                            (path.equals("/api/products") && method.equals("POST")) ||
+                                                    path.startsWith("/api/public/") ||
+                                                    path.startsWith("/api/auth/") ||
+                                                    path.startsWith("/uploads/") ||
+                                                    (path.startsWith("/api/products") && method.equals("GET"))
+                                    );
+                                }
                         )
                 )
                 .authorizeHttpRequests(auth -> auth
