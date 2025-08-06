@@ -50,11 +50,13 @@ public class SecurityConfig {
                                 "/api/auth/**",  // Added all auth endpoints
                                 "/api/products", // Added GET endpoints
                                 "/api/products/{id}",
-                                "/api/orders"
+                                "/api/orders",
+                                "/uploads/**"
                         )
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll() // Broader auth permission
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/uploads/**").permitAll()// Broader auth permission
                         .requestMatchers(HttpMethod.GET, "/api/products").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/products/{id}").permitAll()
                         .requestMatchers("/api/products/**").authenticated()
