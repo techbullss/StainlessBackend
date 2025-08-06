@@ -75,7 +75,7 @@ public class SecurityConfig {
         // Configure allowed origins (add production URL when needed)
         configuration.setAllowedOrigins(Arrays.asList(
                 "http://localhost:3000",
-                "https://your-production-domain.com"
+                "https://stainless-frontend.vercel.app"
         ));
 
         // Allowed HTTP methods

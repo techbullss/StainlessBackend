@@ -18,7 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://stainless-frontend.vercel.app")
 public class AuthController {
 
     @Autowired
@@ -43,11 +43,11 @@ public class AuthController {
         // Set cookie
         ResponseCookie cookie = ResponseCookie.from("jwt", token)
                 .httpOnly(true)
-                .secure(false) // Enable in production with HTTPS
+                .secure(true) // Enable in production with HTTPS
                 .path("/")
                 .maxAge(7 * 24 * 60 * 60) // 7 days
                 .sameSite("Lax")
-                .domain("localhost")// Helps with CSRF
+                .domain("stainless-frontend.vercel.app")// Helps with CSRF
                 .build();
 
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
