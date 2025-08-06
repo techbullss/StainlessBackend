@@ -49,7 +49,7 @@ public class FileStorageService {
             Path targetLocation = fileStorageLocation.resolve(newFileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-            return "http://localhost:8080/uploads/" + newFileName;
+            return "https://stainlessbackend-5.onrender.com/uploads/" + newFileName;
         } catch (IOException ex) {
             log.error("Could not store file {}", fileName, ex);
             throw new FileStorageException("Could not store file " + fileName, ex);
