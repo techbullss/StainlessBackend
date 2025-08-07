@@ -55,7 +55,7 @@ public class SecurityConfig {
                                             (path.equals("/api/products") && method.equals("POST")) ||
                                                     path.startsWith("/api/public/") ||
                                                     path.startsWith("/api/auth/") ||
-                                                    path.startsWith("/uploads/") ||
+                                                    path.startsWith("/api/orders") ||
                                                     (path.startsWith("/api/products") && method.equals("GET"))
                                     );
                                 }
@@ -63,7 +63,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/uploads/**").permitAll()// Broader auth permission
+                        .requestMatchers(HttpMethod.POST,"/api/orders").permitAll()// Broader auth permission
                         .requestMatchers(HttpMethod.GET, "/api/products").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/products").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/products/{id}").permitAll()
